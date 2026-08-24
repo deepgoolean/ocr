@@ -77,13 +77,6 @@ curl -X POST http://127.0.0.1:8000/extract \
   documents.
 
 
-  I have completed the ORC optimization. I tried changing the Python libraries, but there was not much improvement in the overall performance.
-
-However, I tested the same text extraction process using Node.js, and we are getting much better results. The text extraction that was taking around 75 seconds is now taking approximately 20 seconds with Node.js.
-
-I created an API for this in Node.js and tested it manually, and it is working as expected.
-
-
 
 
 
