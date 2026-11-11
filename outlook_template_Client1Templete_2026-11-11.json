@@ -1,0 +1,173 @@
+{
+  "format": "rule-management-template",
+  "format_version": 2,
+  "client": {
+    "id": 4,
+    "name": "Law Firm"
+  },
+  "exported_at": "2026-11-11T15:04:23",
+  "exported_by": "admin@lawfirm.com",
+  "template": {
+    "id": 9,
+    "name": "Client1Templete",
+    "description": ""
+  },
+  "filters": {
+    "mailbox_emails": [],
+    "folders": [],
+    "sender_whitelist": [
+      "pratik.maral@Knovaone.AI",
+      "neeraj.pal@knovaone.ai"
+    ],
+    "sender_blacklist": [],
+    "recipient_filters": [],
+    "subject_keywords": [
+      "Motion",
+      "Summons",
+      "SERVICE OF COURT DOCUMENT"
+    ],
+    "body_keywords": [],
+    "max_emails_per_sender_per_day": null
+  },
+  "rules": [
+    {
+      "id": 31,
+      "name": "Notice HearingScheduling",
+      "version": 2,
+      "priority": 10,
+      "scope": "EMAIL",
+      "source_filter": "ANY",
+      "document_types": [
+        "NOTICE"
+      ],
+      "intents": [
+        "HearingScheduling"
+      ],
+      "keywords": [
+        "summons/notice to appear",
+        "summons",
+        "notice to appear",
+        "notice",
+        "pretrial conference",
+        "pretrial conference/mediation"
+      ],
+      "exclude_keywords": [],
+      "keyword_mode": "any",
+      "conditions": [
+        {
+          "field": "hearing_date",
+          "value": null,
+          "operator": "exists",
+          "required": false
+        },
+        {
+          "field": "case_number",
+          "value": null,
+          "operator": "exists",
+          "required": false
+        }
+      ],
+      "inclusion_rules": [],
+      "exclusion_rules": [],
+      "actions": [
+        {
+          "type": "MOVE",
+          "state": null,
+          "params": {
+            "folder": "/SummonsIssued"
+          },
+          "sequence": 2
+        },
+        {
+          "type": "FORWARD",
+          "state": null,
+          "params": {
+            "to": "deep3652uk@gmail.com",
+            "only_if_field": ""
+          },
+          "sequence": 2
+        }
+      ],
+      "use_vector": true,
+      "confidence_threshold": 0.6
+    },
+    {
+      "id": 32,
+      "name": "Motion CaseFiling",
+      "version": 2,
+      "priority": 10,
+      "scope": "EMAIL",
+      "source_filter": "ANY",
+      "document_types": [
+        "MOTION"
+      ],
+      "intents": [
+        "CaseFiling"
+      ],
+      "keywords": [
+        "motion to dismiss",
+        "motion",
+        "dismiss complaint",
+        "complaint",
+        "dismiss",
+        "daniel"
+      ],
+      "exclude_keywords": [],
+      "keyword_mode": "any",
+      "conditions": [
+        {
+          "field": "hearing_date",
+          "value": null,
+          "operator": "exists",
+          "required": false
+        },
+        {
+          "field": "case_number",
+          "value": null,
+          "operator": "exists",
+          "required": false
+        }
+      ],
+      "inclusion_rules": [],
+      "exclusion_rules": [],
+      "actions": [
+        {
+          "type": "MOVE",
+          "state": null,
+          "params": {
+            "folder": "MotiontoDismissPDF"
+          },
+          "sequence": 2
+        },
+        {
+          "type": "MOVE_EMAIL",
+          "state": null,
+          "params": {
+            "folder": "MotiontoDismiss"
+          },
+          "sequence": 2
+        },
+        {
+          "type": "RENAME",
+          "state": null,
+          "params": {
+            "pattern": "MotiontoDismiss_{file_name}_{date}"
+          },
+          "sequence": 3
+        },
+        {
+          "type": "FORWARD",
+          "state": null,
+          "params": {
+            "to": "deep3652uk@gmail.com",
+            "only_if_field": ""
+          },
+          "sequence": 4
+        }
+      ],
+      "use_vector": true,
+      "confidence_threshold": 0.6
+    }
+  ],
+  "checksum": "sha256:d85903991db96ef4623d044c6a57e122740aeae5ecc4c0e2e926283cda60f318"
+}
